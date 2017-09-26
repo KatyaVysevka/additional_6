@@ -54,7 +54,7 @@ it('should calculate the number of zeros 18', () => {
 });
 
 it('should calculate the number of zeros 24', () => {
-  assert.equal(zeros('45!*63!'), 24);
+  assert.equal(zeros('45!*63!'), 24);//000 000 000 0 * 000 000 000 000 00
 });
 
 it('should calculate the number of zeros 30', () => {
