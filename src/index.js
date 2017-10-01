@@ -1,43 +1,45 @@
 module.exports = function zeros(expression) {
-  // your solution
-  var a = expression;
-  var nice = a.split('*');
-  var list0 = 0;
-  var list2 = 0;
-  var list5 = 0;
+    var nice = expression.split('*');//['15!', '23!']
+    var list2 = 0;
+    var list5 = 0;
+    var array = [];
 
-  for (var i = 0; i < nice.length; i++) {
-      var numberStr = nice[i].split('');
-      var boobs = 1;
-      for (var k = numberStr.length - 2; k > -1; k--) {
-          var num = numberStr[k] - 0;
-          
-          if (k == numberStr.length - 2){
-              checkFirstNumber(num);
-          }else{
-              list0 += boobs * 2 * num;
-              boobs *= 10;
-          }
+    for (var index = 0; index < nice.length; index++) {
+        var elem = nice[index];//'23!'
+        var a = elem.indexOf('!');
+        var num = elem.substr(0, a) - 0;
 
-      }
-  }
-var answer = list0 + min(list2, list5)
- return answer;
+        if (elem.indexOf('!!') == -1 || num % 2 == 0){
+            for (var f = 2; f <= num; f += 2) {
+                list2 += countOfDelitel(f, 2);
+            }
+        }
 
+        var step = elem.indexOf('!!') == -1
+            ? 5 
+            : 10;
+        var start = elem.indexOf('!!') == -1 || num % 2 == 1 
+            ? 5 
+            : 10;
+        for (var f = start; f <= num; f += step) {
+            list5 += countOfDelitel(f, 5);
+        }
+    }
 
-  function min(a, b){
-      return a > b ? b : a;
-  }
+    var answer = min(list2, list5);
+    return answer;
 
-  function checkFirstNumber(number){
-      if (num > 4){
-          list5++;
-      }
-      if (num > 1){
-          list2++;
-      }
-      if (num == 0){
-          list0++;
-      }
-  }
+    function countOfDelitel(number, delitel) {
+        var count = 0;
+        while (number != 0 && number % delitel == 0) {
+            count++;
+            number = number / delitel;
+        }
+
+        return count;
+    }
+
+    function min(a, b) {
+        return a > b ? b : a;
+    }
 }
